@@ -85,3 +85,61 @@ casper.run();
 casperjs screenshot.js
 ```
 
+## Filickr で検索結果を表示してみる
+
+画像共有サイトFlickr を使って、公開されている猫の画像を検索し、その検索結果をスクリーンショットを保存するプログラムを`flickrShot.js`と言う名前で制作してみます
+
+```javascript
+// Webサイトからスクリーンショットを撮る
+var TARGET_URL = "https://www.flickr.com/";
+
+// CaperJSのオブジェクトを作成
+var casper = require('casper').create();
+
+// 指定のWebサイトを開く
+casper.start();
+
+// 画面サイズを指定する
+casper.viewport(1024, 800);
+
+casper.open(TARGET_URL);
+
+// 検索フォームに猫を設定
+casper.then(function () {
+	this.fill("form[role='search']", { text: "ネコ" }, true);
+});
+
+// その後、スクリーンショット撮影
+casper.then(function () {
+	this.capture("screenshot.png", {
+		top: 0,
+		left: 0,
+		width: 1024,
+		height: 800
+	});
+});
+
+// 処理を実行する
+casper.run();
+
+```
+
+以下のコマンドを実行すると画面のスクリーンショットを`screenshot.png`と言うファイル名で保存されます
+
+```bash
+casperjs flickrShot.js
+```
+
+## iPhone のふりをしてWebサイトを撮る
+
+UserAgent を iPhone に設定した上でスクリーンショットを撮るプログラム`useragentshot.js`を作成します
+
+```javascript
+
+```
+
+以下のコマンドを実行すると画面のスクリーンショットを`screenshot.png`と言うファイル名で保存されます
+
+```bash
+casperjs useragentshot.js
+```
